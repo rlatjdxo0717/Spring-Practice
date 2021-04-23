@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memo2">
+<!-- 	<select id="login" parameterType="mbVO"  resultType="mbVO">
+		select * from MEMBER where ID = #{ID} and PW = #{PW}
+		el: 출력용!
+	</select> -->	
+	<insert id="insert" parameterType="memovo2">
+		insert into MEMORY values (#{id}, #{subject}, #{indate}, #{use}, #{classify}, #{standard}, #{capacity}, #{pack}, #{clock}, #{ramtime}, #{voltage}, #{heatsink}, #{fee}, #{img})
+	</insert>
+	<delete id="delete" parameterType="memovo2">
+		delete from MEMORY where id = #{id}
+	</delete>
+	<update id="update" parameterType="memovo2">
+		update MEMORY set subject = #{subject} where id = #{id}
+	</update>
+	<select id="select" parameterType="memovo2" resultType="memovo2">
+		select * from MEMORY where id = #{id}
+	</select>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cpu2">
+<!-- 	<select id="login" parameterType="mbVO"  resultType="mbVO">
+		select * from MEMBER where ID = #{ID} and PW = #{PW}
+		el: 출력용!
+	</select> -->	
+	<insert id="insert" parameterType="cpuvo2">
+		insert into CPU values (#{id}, #{subject}, #{company}, #{indate}, #{sort}, #{socket}, #{generation}, #{birth}, #{chipline}, #{pcie}, #{maxpcie}, #{fee}, #{img})
+	</insert>
+	<delete id="delete" parameterType="cpuvo2">
+		delete from CPU where id = #{id}
+	</delete>
+	<update id="update" parameterType="cpuvo2">
+		update CPU set subject = #{subject} where id = #{id}
+	</update>
+	<select id="select" parameterType="cpuvo2" resultType="cpuvo2">
+		select * from CPU where id = #{id}
+	</select>
+</mapper>

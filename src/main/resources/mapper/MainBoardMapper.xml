@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mb">
+	<insert id="insert" parameterType="mbVO">
+		insert into "MAINBOARD" values (#{id}, #{subject}, #{company}, #{indate}, #{socket}, #{lineup}, #{chipset}
+		, #{factor}, #{power}, #{fee}, #{img})
+	</insert>
+	
+	<select id="select" parameterType="mbVO" resultType="mbVO">
+		select * from "MAINBOARD" where id = #{id}
+	</select>
+	
+	<update id="update" parameterType="mbVO">
+		update "MAINBOARD" set company = #{company} where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="mbVO">
+		delete from "MAINBOARD" where id = #{id}
+	</delete>
+	
+	<select id="mb1" parameterType="mbVO" resultType="mbVO">
+		<![CDATA[select * from MAINBOARD WHERE MAINBOARD.ID >= 1 AND MAINBOARD.ID <= 5]]>
+	</select>
+	
+	<select id="mb2" parameterType="mbVO" resultType="mbVO">
+		<![CDATA[select * from MAINBOARD WHERE MAINBOARD.ID >= 6 AND MAINBOARD.ID <= 10]]>
+	</select>
+	
+	<select id="mb3" parameterType="mbVO" resultType="mbVO">
+		<![CDATA[select * from MAINBOARD WHERE MAINBOARD.ID >= 11 AND MAINBOARD.ID <= 15]]>
+	</select>
+	<select id="mb4" parameterType="mbVO" resultType="mbVO">
+		<![CDATA[select * from MAINBOARD WHERE MAINBOARD.ID >= 16 AND MAINBOARD.ID <= 20]]>
+	</select>
+	
+	<select id="find" parameterType="String" resultType="mbVO">
+		select * from MAINBOARD where MAINBOARD.SUBJECT like '%'||#{subject}||'%'
+	</select>
+	
+	<select id="find2" parameterType="String" resultType="mbVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, subject, company, indate, socket, lineup, chipset, factor, power, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, subject, company, indate, socket, lineup, chipset, factor, power, fee, img
+						from
+						(
+							select *
+							from MAINBOARD
+							where MAINBOARD.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 6
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="find3" parameterType="String" resultType="mbVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, subject, company, indate, socket, lineup, chipset, factor, power, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, subject, company, indate, socket, lineup, chipset, factor, power, fee, img
+						from
+						(
+							select *
+							from MAINBOARD
+							where MAINBOARD.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 11
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="find4" parameterType="String" resultType="mbVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, subject, company, indate, socket, lineup, chipset, factor, power, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, subject, company, indate, socket, lineup, chipset, factor, power, fee, img
+						from
+						(
+							select *
+							from MAINBOARD
+							where MAINBOARD.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 16
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="random" parameterType="mbVO" resultType="mbVO">
+		<![CDATA[select * from (select * from "MAINBOARD"
+								where MAINBOARD.LINEUP = 'AMD 500 시리즈'
+								OR MAINBOARD.LINEUP = '인텔 500 시리즈'
+								order by DBMS_RANDOM.VALUE)
+					 where rownum <= 1]]>
+	</select>
+</mapper>

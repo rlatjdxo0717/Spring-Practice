@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.mega.project.CPUVO" alias="cpuVO"></typeAlias>
+		<typeAlias type="com.mega.project.MainBoardVO" alias="mbVO"></typeAlias>
+		<typeAlias type="com.mega.project.MemoryVO" alias="memoVO"></typeAlias>
+		<typeAlias type="com.mega.project.GraphicVO" alias="graVO"></typeAlias>
+		<typeAlias type="com.mega.project.LoginVO" alias="loginVO"></typeAlias>
+		<typeAlias type="com.mega.project.CartVO" alias="cartVO"></typeAlias>
+		<typeAlias type="com.mega.project.MiniVO" alias="miniVO"></typeAlias>
+		<typeAlias type="com.mega.project.BoardVO" alias="BoardVO"></typeAlias>
+		<typeAlias type="com.mega.project.CommentVO" alias="CommentVO"></typeAlias>
+		<typeAlias type="com.mega.project.LikeVO" alias="LikeVO"></typeAlias>
+		<typeAlias type="com.mega.project.SearchVO" alias="SearchVO"></typeAlias>
+		<typeAlias type="com.mega.project.CPUVO2" alias="cpuVO2"></typeAlias>
+		<typeAlias type="com.mega.project.MBVO2" alias="mbVO2"></typeAlias>
+		<typeAlias type="com.mega.project.GraphVO2" alias="graphVO2"></typeAlias>
+		<typeAlias type="com.mega.project.MemoryVO2" alias="memoVO2"></typeAlias>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/cpuMapper2.xml" />
+		<mapper resource="mapper/mbMapper2.xml" />
+		<mapper resource="mapper/graphMapper2.xml" />
+		<mapper resource="mapper/memoMapper2.xml" />
+		<mapper resource="mapper/CPUMapper.xml" />
+		<mapper resource="mapper/MainBoardMapper.xml" />
+		<mapper resource="mapper/MemoryMapper.xml" />
+		<mapper resource="mapper/GraphicMapper.xml" />
+		<mapper resource="mapper/loginMapper.xml" />
+		<mapper resource="mapper/cartMapper.xml" />
+		<mapper resource="mapper/miniMapper.xml" />
+		<mapper resource="mapper/BoardMapper.xml" />
+		<mapper resource="mapper/CommentMapper.xml" />
+		<mapper resource="mapper/LikeMapper.xml" />
+	</mappers>
+</configuration>

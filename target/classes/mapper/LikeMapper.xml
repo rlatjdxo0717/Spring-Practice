@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Like">
+
+	<insert id="insert" parameterType="LikeVO">
+		insert into BLIKE values (#{likebno},#{likeid}, likeno_seq.nextval)
+	</insert>
+
+	<delete id="cancel" parameterType="LikeVO">
+		delete from BLIKE where likebno = #{likebno} and likeid = #{likeid}
+	</delete>
+	
+	<select id="select" parameterType="LikeVO" resultType="LikeVO">
+		select * from BLIKE where  likebno = #{likebno} and likeid = #{likeid}
+	</select>
+	
+	<update id="count" parameterType="LikeVO" >
+		update BOARD set blike = blike + 1 where bno = #{likebno}
+	</update>
+	
+	<update id="count2" parameterType="LikeVO" >
+		update BOARD set blike = blike - 1 where bno = #{likebno}
+	</update>
+	
+
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="graphic">
+	<insert id="insert" parameterType="graVO">
+		insert into "GRAPHIC" values (#{id}, #{subject}, #{company}, #{indate}, #{series},
+		 #{chipline}, #{chipset}, #{base}, #{boost}, #{cuda}, #{itf}, #{fee}, #{img})
+	</insert>
+	
+	<select id="select" parameterType="graVO" resultType="graVO">
+		select * from "GRAPHIC" where id = #{id}
+	</select>
+	
+	<update id="update" parameterType="graVO">
+		update "GRAPHIC" set itf = #{itf} where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="graVO">
+		delete from "GRAPHIC" where id = #{id}
+	</delete>
+	
+	<select id="gra1" parameterType="graVO" resultType="graVO">
+		<![CDATA[select * from "GRAPHIC" WHERE GRAPHIC.ID >= 1 AND GRAPHIC.ID <= 5]]>
+	</select>
+	
+	<select id="gra2" parameterType="graVO" resultType="graVO">
+		<![CDATA[select * from "GRAPHIC" WHERE GRAPHIC.ID >= 6 AND GRAPHIC.ID <= 10]]>
+	</select>
+	
+	<select id="gra3" parameterType="graVO" resultType="graVO">
+		<![CDATA[select * from "GRAPHIC" WHERE GRAPHIC.ID >= 11 AND GRAPHIC.ID <= 15]]>
+	</select>
+	
+	<select id="gra4" parameterType="graVO" resultType="graVO">
+		<![CDATA[select * from "GRAPHIC" WHERE GRAPHIC.ID >= 16 AND GRAPHIC.ID <= 20]]>
+	</select>
+	
+	<select id="find" parameterType="String" resultType="graVO">
+		select * from GRAPHIC where GRAPHIC.SUBJECT like '%'||#{subject}||'%'
+	</select>
+		
+	<select id="find2" parameterType="String" resultType="graVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, subject, company, indate, series, chipline, chipset, base, boost, cuda, itf, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, subject, company, indate, series, chipline, chipset, base, boost, cuda, itf, fee, img
+						from
+						(
+							select *
+							from GRAPHIC
+							where GRAPHIC.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 6
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="find3" parameterType="String" resultType="graVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, subject, company, indate, series, chipline, chipset, base, boost, cuda, itf, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, subject, company, indate, series, chipline, chipset, base, boost, cuda, itf, fee, img
+						from
+						(
+							select *
+							from GRAPHIC
+							where GRAPHIC.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 11
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="find4" parameterType="String" resultType="graVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, subject, company, indate, series, chipline, chipset, base, boost, cuda, itf, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, subject, company, indate, series, chipline, chipset, base, boost, cuda, itf, fee, img
+						from
+						(
+							select *
+							from GRAPHIC
+							where GRAPHIC.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 16
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="random" parameterType="graVO" resultType="graVO">
+		<![CDATA[select * from (select * from "GRAPHIC"
+								where GRAPHIC.SERIES like '%'||'RTX'||'%'
+								order by DBMS_RANDOM.VALUE)
+					 where rownum <= 1]]>
+	</select>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memory">
+	<insert id="insert" parameterType="memoVO">
+		insert into "MEMORY" values (#{id}, #{subject}, #{company}, #{indate}, #{use}, #{classify}, #{standard},
+		 #{capacity}, #{pack}, #{clock}, #{ramtime}, #{voltage}, #{heatsink}, #{fee}, #{img})
+	</insert>
+	<select id="select" resultType="memoVO">
+		select * from "MEMORY" where id = #{id}
+	</select>
+	<update id="update" parameterType="memoVO">
+		update "MEMORY" set ramtime = #{ramtime} where id = #{id}
+	</update>
+	<delete id="delete" parameterType="memoVO">
+		delete from "MEMORY" where id = #{id}
+	</delete>
+	
+	<select id="memo1" resultType="memoVO">
+		<![CDATA[select * from "MEMORY" WHERE MEMORY.ID >= 1 AND MEMORY.ID <= 5]]>
+	</select>
+	
+	<select id="memo2" resultType="memoVO">
+		<![CDATA[select * from "MEMORY" WHERE MEMORY.ID >= 6 AND MEMORY.ID <= 10]]>
+	</select>
+	
+	<select id="memo3" resultType="memoVO">
+		<![CDATA[select * from "MEMORY" WHERE MEMORY.ID >= 11 AND MEMORY.ID <= 15]]>
+	</select>
+	<select id="memo4" resultType="memoVO">
+		<![CDATA[select * from "MEMORY" WHERE MEMORY.ID >= 16 AND MEMORY.ID <= 20]]>
+	</select>
+</mapper>

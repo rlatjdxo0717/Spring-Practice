@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mb2">
+<!-- 	<select id="login" parameterType="mbVO"  resultType="mbVO">
+		select * from MEMBER where ID = #{ID} and PW = #{PW}
+		el: 출력용!
+	</select> -->	
+	<insert id="insert" parameterType="mbvo2">
+		insert into MAINBOARD values (#{id}, #{subject}, #{company}, #{indate}, #{sort}, #{socket}, #{lineup}, #{chipset}, #{factor}, #{power},#{fee},#{img})
+	</insert>
+	<delete id="delete" parameterType="mbvo2">
+		delete from MAINBOARD where id = #{id}
+	</delete>
+	<update id="update" parameterType="mbvo2">
+		update MAINBOARD set subject = #{subject} where id = #{id}
+	</update>
+	<select id="select" parameterType="mbvo2" resultType="mbvo2">
+		select * from MAINBOARD where id = #{id}
+	</select>
+</mapper>

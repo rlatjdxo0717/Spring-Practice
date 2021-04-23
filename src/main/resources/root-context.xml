@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- bean : 싱글톤 객체 -->
+<!-- context : project 전체 영역에서 사용할 싱글톤 객체를 정의하는 파일 -->
+<!-- 스프링 프로그램이 시작할 때, 어노테이션과 이 파일을 읽어서 싱글톤을 만들 때 문제가 생기면, 스프링 프로그램이 시작되지 않는다. 
+	 404 에러가 시작된다. 콘솔을 보고 에러의 맨 마지막에 보여지는 에러를 확인해서 수정해야 한다.-->
+
+<!-- myBatis 싱글톤 객체 필요
+	 SqlSessionTemplate mybatis = new SqlSessionTemplate(config);
+	 
+	 public class SqlSessionTemplate {
+	 	SqlSessionFactoryBean config;
+	 	public SqlSessionTemplate(SqlSessionFactoryBean config) {
+			this.config = config;
+	 	}
+	 }
+-->
+
+<!-- 객체생성 시 config를 reference 해주지 않으면 안된다! -->
+<!-- 파라메터있는 생성자 호출시, 생성자 파라메터 순서대로 써준다.-->
+<bean id="mybatis" class="org.mybatis.spring.SqlSessionTemplate">
+   <constructor-arg ref="config"></constructor-arg>
+</bean>
+
+<!-- myBatis 싱글톤, dbcp싱글톤 객체 필요 -->
+<!-- myBatis 설정만 담당하는 싱글톤 객체 필요
+	 mapper 관리해주는 config설정, dbcp설정 -->
+<!-- String cinfigLocation; 정수, 실수, 문자, 논리 String
+	DataSource dataSource; -->
+<bean id="config" class="org.mybatis.spring.SqlSessionFactoryBean">
+   <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+   <property name="dataSource" ref="dbcp"></property>
+</bean>
+
+<!-- BasicDataSource dbcp = new BasicDataSource();
+		dbcp.SetDriverClassName("oracle.jdbc.OracleDriver");
+		dbcp.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		dbcp.setUsername("root");
+		dbcp.setPassword("1234"); -->
+
+<!-- myBatis 싱글톤, dbcp싱글톤 객체 필요 -->
+<!-- DBCP dbcp = new DBCP(); -->
+<bean id="dbcp" class="org.apache.commons.dbcp.BasicDataSource"> 
+	<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+	<property name="username" value="root"></property>
+	<property name="password" value="1234"></property>
+	<!-- 여긴 기본적으로 다 문자열, 문자열 = value -->
+</bean>
+
+</beans>

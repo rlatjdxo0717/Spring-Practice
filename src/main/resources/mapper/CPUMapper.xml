@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cpu">
+	<insert id="insert" parameterType="cpuVO">
+		insert into "CPU" values (#{id}, #{subject}, #{company}, #{indate}, #{sort}, #{socket}, #{generation}, #{birth}, 
+									#{chipline}, #{pcie}, #{maxpcie}, #{fee}, #{img})
+	</insert>
+	
+	<!-- 페이징 값을 입력받아서, 테이블에 저장된 ID컬럼값과 비교하여 각 페이지에 대응하는 구간의 데이터들을 불러오는 용도로 사용 -->
+	<select id="select" parameterType="cpuVO" resultType="cpuVO">
+		select * from "CPU" where id = #{id}
+	</select>
+	
+	<update id="update" parameterType="cpuVO">
+		update "CPU" set subject = #{subject} where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="cpuVO">
+		delete from "CPU" where id = #{id}
+	</delete>
+	<!-- parameterType : VO에 입력될 타입, resultType : DB에서 정보를 가져와서 리턴받는 타입 -->
+	<!-- 페이지 마다 DB의 행 데이터를 5개씩 나눠서 읽어들일 수 있도록 함. -->
+	<select id="cpu1" parameterType="cpuVO" resultType="cpuVO">
+		<![CDATA[select * from CPU WHERE CPU.ID >= 1 AND CPU.ID <= 5]]>
+	</select>
+	
+	<select id="cpu2" parameterType="cpuVO" resultType="cpuVO">
+		<![CDATA[select * from CPU WHERE CPU.ID >= 6 AND CPU.ID <= 10]]>
+	</select>
+	
+	<select id="cpu3" parameterType="cpuVO" resultType="cpuVO">
+		<![CDATA[select * from CPU WHERE CPU.ID >= 11 AND CPU.ID <= 15]]>
+	</select>
+	
+	<select id="cpu4" parameterType="cpuVO" resultType="cpuVO">
+		<![CDATA[select * from CPU WHERE CPU.ID >= 16 AND CPU.ID <= 20]]>
+	</select>
+	
+	<!-- 직접 검색 후 페이징을 위한 SQL, 물품명에 포함되는 단어를 검색하여 각 부품별 최대 5개씩 각 페이지 안에 넣어둔다.
+		  한 페이지에 최대 20개까지 표시될 수 있지만, 단어 검색 시 그런 경우는 없었음.
+		  중간 select 문에서 *를 사용하면 최종적으로 브라우저에 구현했을 때는 정보가 표시되지 않고, 직접 다 써주었을 때만 표시된다. -->
+	<select id="find" parameterType="String" resultType="cpuVO">
+		<![CDATA[select *
+				from
+				(
+					select ROWNUM, subject, company, indate, sort, socket, generation, birth, chipline, pcie, maxpcie, fee, img
+					from
+					(
+						select *
+						from CPU
+						where CPU.SUBJECT like '%'||#{subject}||'%'
+					)
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="find2" parameterType="String" resultType="cpuVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, subject, company, indate, sort, socket, generation, birth, chipline, pcie, maxpcie, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, subject, company, indate, sort, socket, generation, birth, chipline, pcie, maxpcie, fee, img
+						from
+						(
+							select *
+							from CPU
+							where CPU.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 6
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="find3" parameterType="String" resultType="cpuVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, subject, company, indate, sort, socket, generation, birth, chipline, pcie, maxpcie, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, subject, company, indate, sort, socket, generation, birth, chipline, pcie, maxpcie, fee, img
+						from
+						(
+							select *
+							from CPU
+							where CPU.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 11
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="find4" parameterType="String" resultType="cpuVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, subject, company, indate, sort, socket, generation, birth, chipline, pcie, maxpcie, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, subject, company, indate, sort, socket, generation, birth, chipline, pcie, maxpcie, fee, img
+						from
+						(
+							select *
+							from CPU
+							where CPU.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 16
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<!-- PC 추천하는 경우: 해당하는 단어가 포함되는 컬럼을 해당 테이블에서 검색, 이후 1개를 랜덤으로 뽑아 낸다. -->
+	<select id="random" parameterType="cpuVO" resultType="cpuVO">
+		<![CDATA[select * from (select * from "CPU" 
+								where CPU.SORT like '%'||'7'||'%'
+								or CPU.SORT like '%'||'10'||'%'
+								or CPU.SORT like '%'||'11'||'%'
+								order by DBMS_RANDOM.VALUE) 
+					where rownum <= 1]]>
+	</select>
+
+</mapper>

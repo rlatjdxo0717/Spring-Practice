@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+	<insert id="insert" parameterType="BoardVO">
+		insert into BOARD values (bno_seq.nextval,#{bid},#{btitle},#{bcontent},SYSDATE,DEFAULT,DEFAULT,DEFAULT)
+	</insert>
+	
+	<update id="update" parameterType="BoardVO">
+		update BOARD set bcontent = #{bcontent}, btitle = #{btitle} where bno = #{bno}
+	</update>
+	
+	<update id="update2" parameterType="BoardVO">
+		update BOARD set bviews = #{bviews} where bno = #{bno}
+	</update>
+
+	<delete id="delete" parameterType="BoardVO">
+		delete from BOARD where bno = #{bno}
+	</delete>
+	
+	<select id="select" parameterType="BoardVO" resultType="BoardVO">
+		select bno, bid, btitle, bcontent, to_char(bdate, 'yyyy-mm-dd hh24:mi:ss') as bdate2, blike, bviews from BOARD where bno = #{bno}
+	</select>
+	
+	<select id="all" resultType="BoardVO">
+		select bno, bid, btitle, to_char(bdate, 'yyyy-mm-dd hh24:mi:ss') as bdate2, blike, bviews from BOARD order by bno DESC
+	</select>
+	
+	<select id="likecount" parameterType="BoardVO" resultType="BoardVO">
+		select blike from BOARD where bno = #{bno}
+	</select>
+	
+	<select id="searchtitle" parameterType="SearchVO" resultType="BoardVO">
+		select bno, bid, btitle, to_char(bdate, 'yyyy-mm-dd hh24:mi:ss') as bdate2, blike, bviews from BOARD where UPPER(${s_field}) LIKE '%'||UPPER(#{s_word})||'%' order by bno DESC
+	</select>
+	
+	<select id="sort" parameterType="string" resultType="BoardVO">
+		select bno, bid, btitle, to_char(bdate, 'yyyy-mm-dd hh24:mi:ss') as bdate2, blike, bviews from BOARD order by ${value} DESC
+	</select>
+
+	<select id="quick" resultType="BoardVO">
+		select bno, bid, btitle, to_char(bdate, 'yyyy-mm-dd hh24:mi:ss') as bdate2, blike, bviews from BOARD
+	</select>
+	
+	<select id="quick2" parameterType="Hashmap" resultType="BoardVO">
+		select bno, bid, btitle, to_char(bdate, 'yyyy-mm-dd hh24:mi:ss') as bdate2, blike, bviews from BOARD where bviews in 
+		<foreach collection="array" item="qArray" open="(" close=")" separator=",">
+		 #{qArray}
+		</foreach>
+	</select>
+	
+</mapper>

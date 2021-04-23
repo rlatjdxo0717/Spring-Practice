@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memory">
+	<insert id="insert" parameterType="memoVO">
+		insert into "MEMORY" values (#{id}, #{subject}, #{company}, #{indate}, #{use}, #{classify}, #{standard},
+		 #{capacity}, #{pack}, #{clock}, #{ramtime}, #{voltage}, #{heatsink}, #{fee}, #{img})
+	</insert>
+	
+	<select id="select" resultType="memoVO" parameterType="memoVO">
+		select * from "MEMORY" where id = #{id}
+	</select>
+	
+	<update id="update" parameterType="memoVO">
+		update "MEMORY" set ramtime = #{ramtime} where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="memoVO">
+		delete from "MEMORY" where id = #{id}
+	</delete>
+	
+	<select id="memo1" parameterType="memoVO" resultType="memoVO">
+		<![CDATA[select * from MEMORY WHERE MEMORY.ID >= 1 AND MEMORY.ID <= 5]]>
+	</select>
+	
+	<select id="memo2" parameterType="memoVO" resultType="memoVO">
+		<![CDATA[select * from MEMORY WHERE MEMORY.ID >= 6 AND MEMORY.ID <= 10]]>
+	</select>
+	
+	<select id="memo3" parameterType="memoVO" resultType="memoVO">
+		<![CDATA[select * from MEMORY WHERE MEMORY.ID >= 11 AND MEMORY.ID <= 15]]>
+	</select>
+	
+	<select id="memo4" parameterType="memoVO" resultType="memoVO">
+		<![CDATA[select * from MEMORY WHERE MEMORY.ID >= 16 AND MEMORY.ID <= 20]]>
+	</select>
+	
+	<select id="find" parameterType="String" resultType="memoVO">
+		select * from MEMORY where MEMORY.SUBJECT like '%'||#{subject}||'%'
+	</select>
+		
+	<select id="find2" parameterType="String" resultType="memoVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, id, subject, company, indate, use, classify, standard, capacity, pack, clock, ramtime, voltage, heatsink, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, id, subject, company, indate, use, classify, standard, capacity, pack, clock, ramtime, voltage, heatsink, fee, img
+						from
+						(
+							select *
+							from MEMORY
+							where MEMORY.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 6
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="find3" parameterType="String" resultType="memoVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, id, subject, company, indate, use, classify, standard, capacity, pack, clock, ramtime, voltage, heatsink, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, id, subject, company, indate, use, classify, standard, capacity, pack, clock, ramtime, voltage, heatsink, fee, img
+						from
+						(
+							select *
+							from MEMORY
+							where MEMORY.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 11
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="find4" parameterType="String" resultType="memoVO">
+		<![CDATA[select * 
+				from
+				(
+					select SEQ, id, subject, company, indate, use, classify, standard, capacity, pack, clock, ramtime, voltage, heatsink, fee, img
+					from
+					(
+						select ROWNUM AS SEQ, id, subject, company, indate, use, classify, standard, capacity, pack, clock, ramtime, voltage, heatsink, fee, img
+						from
+						(
+							select *
+							from MEMORY
+							where MEMORY.SUBJECT like '%'||#{subject}||'%'
+						)
+					)
+					where SEQ >= 16
+				)
+				where ROWNUM <= 5]]>
+	</select>
+	
+	<select id="random" parameterType="memoVO" resultType="memoVO">
+		<![CDATA[select * from (select * from "MEMORY"
+								where MEMORY.CLOCK like '%'||'25600'||'%'
+								order by DBMS_RANDOM.VALUE)
+					 where rownum <= 1]]>
+	</select>
+</mapper>

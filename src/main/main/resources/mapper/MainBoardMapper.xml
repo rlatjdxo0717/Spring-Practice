@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mb">
+	<insert id="insert" parameterType="mbVO">
+		insert into "MAINBOARD" values (#{id}, #{subject}, #{company}, #{indate}, #{socket}, #{lineup}, #{chipset},
+		#{factor}, #{power}, #{fee}, #{img})
+	</insert>
+	<select id="select" resultType="mbVO">
+		select * from "MAINBOARD" where id = #{id}
+	</select>
+	<update id="update" parameterType="mbVO">
+		update "MAINBOARD" set company = #{company} where id = #{id}
+	</update>
+	<delete id="delete" parameterType="mbVO">
+		delete from "MAINBOARD" where id = #{id}
+	</delete>
+	
+	<select id="mb1" resultType="mbVO">
+		<![CDATA[select * from "MAINBOARD" WHERE MAINBOARD.ID >= 1 AND MAINBOARD.ID <= 5]]>
+	</select>
+	
+	<select id="mb2" resultType="mbVO">
+		<![CDATA[select * from "MAINBOARD" WHERE MAINBOARD.ID >= 6 AND MAINBOARD.ID <= 10]]>
+	</select>
+	
+	<select id="mb3" resultType="mbVO">
+		<![CDATA[select * from "MAINBOARD" WHERE MAINBOARD.ID >= 11 AND MAINBOARD.ID <= 15]]>
+	</select>
+	
+	<select id="mb4" resultType="mbVO">
+		<![CDATA[select * from "MAINBOARD" WHERE MAINBOARD.ID >= 16 AND MAINBOARD.ID <= 20]]>
+	</select>
+</mapper>

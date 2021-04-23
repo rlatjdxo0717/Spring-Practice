@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+	<insert id="insert" parameterType="cartVO">
+		insert into CART values
+		(cart_seq.nextval,#{user_id},#{product_id},#{cart_price},#{cart_count},#{cart_image})
+	</insert>
+	<delete id="delete" parameterType="cartVO">
+		delete from CART
+	</delete>
+	<select id="all" parameterType="cartVO" resultType="cartVO">
+		select * from CART
+	</select>
+	<select id="all2" parameterType="cartVO" resultType="cartVO">
+		select * from CART
+	</select>
+	<!-- CRUD 4가지 만들어주세요. -->
+</mapper>

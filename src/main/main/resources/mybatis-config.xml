@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.mega.project.CPUVO" alias="cpuVO"></typeAlias>
+        <typeAlias type="com.mega.project.MainBoardVO" alias="mbVO"></typeAlias>
+        <typeAlias type="com.mega.project.MemoryVO" alias="memoVO"></typeAlias>
+        <typeAlias type="com.mega.project.GraphicVO" alias="graVO"></typeAlias>
+        <typeAlias type="com.mega.project.MemberVO" alias="memberVO"></typeAlias>
+     </typeAliases>
+     <mappers>
+        <mapper resource="mapper/CPUMapper.xml" />
+        <mapper resource="mapper/MainBoardMapper.xml" />      
+        <mapper resource="mapper/MemoryMapper.xml" />
+        <mapper resource="mapper/GraphicMapper.xml" />      
+        <mapper resource="mapper/MemberMapper.xml" />      
+     </mappers>
+</configuration>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cpu">
+	<insert id="insert" parameterType="cpuVO">
+		insert into "CPU" values (#{id}, #{subject}, #{company}, #{indate}, #{sort}, #{socket}, #{generation}, #{birth}, 
+									#{chipline}, #{pcie}, #{maxpcie}, #{fee}, #{img})
+	</insert>
+	<select id="select" resultType="cpuVO">
+		select * from "CPU" where id = #{id}
+	</select>
+	<update id="update" parameterType="cpuVO">
+		update "CPU" set subject = #{subject} where id = #{id}
+	</update>
+	<delete id="delete" parameterType="cpuVO">
+		delete from "CPU" where id = #{id}
+	</delete>
+	
+	<select id="cpu1" resultType="cpuVO">
+		<![CDATA[select * from CPU WHERE CPU.ID >= 1 AND CPU.ID <= 5]]>
+	</select>
+	
+	<select id="cpu2" resultType="cpuVO">
+		<![CDATA[select * from CPU WHERE CPU.ID >= 6 AND CPU.ID <= 10]]>
+	</select>
+	
+	<select id="cpu3" resultType="cpuVO">
+		<![CDATA[select * from CPU WHERE CPU.ID >= 11 AND CPU.ID <= 15]]>
+	</select>
+	<select id="cpu4" resultType="cpuVO">
+		<![CDATA[select * from CPU WHERE CPU.ID >= 16 AND CPU.ID <= 20]]>
+	</select>
+	
+	
+	
+</mapper>

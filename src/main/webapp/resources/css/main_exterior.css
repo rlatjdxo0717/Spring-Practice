@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+#total { /* id를 선택해서 스타일을 지정할 때는 #을 앞에 쓴다. */
+
+}
+/* css로 메인페이지에 계속 고정, 상세화면, 인기작, 신작, 직접검색 페이지에서도 계속 화면 출력 */
+#top { /* 너비, 높이 설정 */
+	width: 1800px;
+	height: 150px;
+	background: none;
+}
+
+#top2 { /* 너비, 높이 색, 글자크기 설정 */
+	width: 1800px;
+	height: 5px;
+	background: MediumSeaGreen;
+}
+
+#top3 {
+	width: 270px;
+	height: 370px;
+	background: gray;
+	color: white;
+	top: 5px;
+	right: 0px;
+	position: fixed; /* 위치 고정s. 다른 내용이 움직여도 모니터 내 위치 고정 */
+	border-radius: 0px 0px 50px 30px; /* 장바구니 모서리 둥근정도 설정 */
+}

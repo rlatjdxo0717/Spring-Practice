@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="graph2">
+<!-- 	<select id="login" parameterType="graphVO"  resultType="graphVO">
+		select * from MEMBER where ID = #{ID} and PW = #{PW}
+		el: 출력용!
+	</select> -->	
+	<insert id="insert" parameterType="graphvo2">
+		insert into GRAPHIC values (#{id}, #{subject}, #{company}, #{indate}, #{series}, #{chipline}, #{chipset}, #{base}, #{boost}, #{cuda}, #{itf},#{fee},#{img})
+	</insert>
+	<delete id="delete" parameterType="graphvo2">
+		delete from GRAPHIC where id = #{id}
+	</delete>
+	<update id="update" parameterType="graphvo2">
+		update GRAPHIC set subject = #{subject} where id = #{id}
+	</update>
+	<select id="select" parameterType="graphvo2" resultType="graphvo2">
+		select * from GRAPHIC where id = #{id}
+	</select>
+</mapper>
