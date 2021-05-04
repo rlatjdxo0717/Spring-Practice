@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+<!-- SqlSessionTemplate mybatis = new SqlSessionTemplate(config); -->
+<bean id="mybatis" class="org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg ref="config"></constructor-arg>
+</bean>
+
+<!-- SqlSessionFactoryBean config = new SqlSessionFactoryBean(); 
+	 config.setConfigLocation("classpath:mybatis-config.xml");
+	 config.setDataSource(dbcp);
+-->
+<!-- String configLocation; 정수,실수,문자,논리,String
+     DataSource dataSource; -->
+
+<bean id="config" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	<property name="dataSource" ref="dbcp"></property>
+</bean>
+
+<!--  BasicDataSource dbcp = new BasicDataSource(); 
+	   dbcp.SetDriverClassName("oracle.jdbc.OracleDriver");
+	   dbcp.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+	   dbcp.setUsername("root");
+	   dbcp.setPassword("1234");
+	-->
+<bean id="dbcp" class="org.apache.commons.dbcp.BasicDataSource">
+	<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+	<property name="username" value="root"></property>
+	<property name="password" value="1234"></property>
+</bean>
+
+</beans>
