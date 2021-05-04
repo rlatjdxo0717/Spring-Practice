@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mini">
+	<insert id="insert" parameterType="miniVO">
+		insert into MINI values (#{mini_name}, #{user_id}, #{mini_content}, #{mini_image}, #{mini_price})
+	</insert>
+	<delete id="delete" parameterType="miniVO">
+		delete from MINI where mini_name = #{mini_name}
+	</delete>
+	<update id="update" parameterType="miniVO">
+		update MINI set mini_content = #{mini_content} where mini_name = #{mini_name}
+	</update>
+	<select id="select" parameterType="miniVO">
+		select * from MINI where mini_name = #{mini_name}
+	</select>
+</mapper>
