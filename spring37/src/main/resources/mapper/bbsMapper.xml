@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bbs">
+	<insert id="insert" parameterType="bbsVO">
+		insert into BBS values (#{id},#{title},#{content},#{writer})
+	</insert>
+	<update id="update" parameterType="bbsVO">
+		update BBS set content = #{content} where id = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="bbsVO">
+		delete from BBS where id = #{id}
+	</delete>
+	
+	<select id="select" parameterType="bbsVO">
+		select * from BBS where id = #{id}
+	</select>
+<!-- CRUD 4가지 만들어주세요. -->
+</mapper>
